@@ -1,0 +1,12 @@
+<!--p-card>
+  Select view model: 
+<p-radioButton name="modelView" value="collapsed" label="Collapsed" [(ngModel)]="selectedModel" (onClick)="setModel('collapsed')"></p-radioButton>
+<p-radioButton name="modelView" value="expanded" label="Expanded" [(ngModel)]="selectedModel" (onClick)="setModel('expanded')"></p-radioButton>
+
+</p-card-->
+
+<p-tree [value]="codelines" [styleClass]="'my-tree'" selectionMode="single" [(selection)]="selectedLine" 
+    (onNodeSelect)="nodeSelect($event)" [filter]="true" [contextMenu]="cm"></p-tree>
+
+   
+<p-contextMenu #cm [model]="items"></p-contextMenu>

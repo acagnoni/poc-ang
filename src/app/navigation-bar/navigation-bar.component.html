@@ -1,0 +1,105 @@
+<p-dialog #dt header="Description" [(visible)]="displayInitialPropagation">
+  <p-table [value]="tables" dataKey="key" editMode="row">
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}"></th>
+            <th>Table</th>
+            <th>Column</th>
+            <th>Short Descpition</th>
+            <th>Long Description</th>
+            <th [style]="{width: '110px', 'text-align': 'center'}">Action</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-tables let-editing="editing" let-ri="rowIndex">
+        <tr [pEditableRow]="tables">
+            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{key}}</th>
+            <td>{{tables.tableName}}</td>
+            <td>{{tables.columnName}}</td>
+            <td>
+            <p-cellEditor>
+                <ng-template pTemplate="input">
+                    <input pInputText type="text" [(ngModel)]="tables.shortDescription" [style]="{width: '100%'}">
+                </ng-template>
+                <ng-template pTemplate="output">
+                    {{tables.shortDescription}}
+                </ng-template>
+            </p-cellEditor>
+          </td>
+          <td>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                  <input pInputText type="text" [(ngModel)]="tables.longDescription" [style]="{width: '100%'}">
+              </ng-template>
+              <ng-template pTemplate="output">
+                  {{tables.longDescription}}
+              </ng-template>
+          </p-cellEditor>
+        </td>
+        <td style="text-align:center" [style]="{width: '110px', 'text-align': 'center'}">
+          <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil"
+              class="ui-button-info" (click)="onRowEditInit(tables, ri)"></button>
+          <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check"
+              class="ui-button-success" style="margin-right: .5em" (click)="onRowEditSave(tables, ri)"></button>
+          <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times"
+              class="ui-button-danger" (click)="onRowEditCancel(tables, ri)"></button>
+        </td>
+        </tr>
+    </ng-template>
+</p-table>
+</p-dialog>
+
+<p-toolbar>
+  <div class="ui-toolbar-group-left">
+      <button pButton type="button" label="Tables" icon="pi pi-plus" (click)="showTables()"></button>
+      <button pButton type="button" label="Modules" icon="pi pi-plus" (click)="showModules()"></button>
+  </div>
+  
+  <div class="ui-toolbar-group-right">
+      <button pButton type="button" icon="pi pi-search"></button>
+      <button pButton type="button" icon="pi pi-calendar" class="ui-button-success"></button>
+      <button pButton type="button" icon="pi pi-times" class="ui-button-danger"></button>
+  </div>
+</p-toolbar>
+
+<p-dialog #dt header="Modules" [(visible)]="displayInitialModules"  [style]="{width: '50vw'}" >
+  <p-table [value]="modules" dataKey="key" editMode="row">
+    <ng-template pTemplate="header">
+      <tr>
+          <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}"></th>
+          <th [style]="{width: '60%', 'text-align': 'center'}">Module Name</th>
+          <th [style]="{width: '110px', 'text-align': 'center'}">Action</th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-modules let-editing="editing" let-ri="rowIndex">
+    <tr [pEditableRow]="modules">
+        <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{key}}</th>
+        <td>{{modules.name}}</td>
+        
+    <td style="text-align:center" [style]="{width: '110px', 'text-align': 'center'}">
+      <button pButton type="button" pInitEditableRow icon="pi pi-pencil"
+          class="ui-button-info" (click)="onGotoModules(modules, ri)"></button>
+    </td>
+    </tr>
+</ng-template>
+  </p-table>
+</p-dialog>
+
+
+<!--link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<div class="navbar">
+  <button type="button" (click)="showTables()" pButton icon="pi pi-info-circle" label="Tables-Columns"></button>
+  
+
+  <p-dialog onShow="drawGraph()" header="Godfather I" [(visible)]="display" [modal]="true" [style]="{width: '50vw'}" [maximizable]="true" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+      <p>Grafico</p>
+      <div id="neo4jd3">
+      </div>
+      <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Ok"></button>
+      </p-footer>
+  </p-dialog>
+</div-->
+

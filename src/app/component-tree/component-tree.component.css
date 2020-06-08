@@ -1,0 +1,8 @@
+:host ::ng-deep .ui-listbox.my-list {
+  width: 100%;
+  height: 100%;
+}
+
+:host ::ng-deep .ui-button.my-list {
+  width: 100%;
+}
