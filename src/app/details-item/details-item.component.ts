@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { VarDescription } from '../model/knowledgedata';
+import { VarDescription, PropagateStructure } from '../model/knowledgedata';
 import { BackendService } from '../services/backend.service';
 
 @Component({
@@ -31,7 +31,21 @@ export class DetailsItemComponent implements OnInit {
 
   onRowEditSave(varDescription: VarDescription, index: number) {
     console.log('Row edit saved' + index.toString());
-    //this.backendService.propagate_variables(varDescription);
+
+    let propagateStructure: PropagateStructure;
+    propagateStructure = new PropagateStructure();
+
+    propagateStructure.key = varDescription.key;
+    propagateStructure.name = varDescription.name;
+    propagateStructure.variabile = varDescription.variableName;
+    propagateStructure.idCall = varDescription.idCall;
+    propagateStructure.type = varDescription.type;
+    propagateStructure.id = varDescription.id;
+    propagateStructure.programId = varDescription.programId;
+    propagateStructure.shortDescription = varDescription.shortDescription;
+    propagateStructure.longDescription = varDescription.longDescription;
+
+    this.backendService.propagate_variables(propagateStructure);
   }
 
   onRowEditCancel(varDescription: VarDescription, index: number) {

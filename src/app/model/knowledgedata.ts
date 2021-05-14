@@ -30,9 +30,27 @@ export class Table {
     longDescription;
   }
 
+export class PropagateStructure {
+    key;
+    name;
+    variabile;
+    type;
+    id;
+    programId;
+    idCall;
+    shortDescription;
+    longDescription;
+  }
+
+
 export class VarDescription {
     key;
+    name;
     variableName;
+    programId;
+    idCall;
+    id;
+    type;
     direction;
     shortDescription;
     longDescription;

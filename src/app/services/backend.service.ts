@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { TreeNode } from 'primeng/api/treenode';
-import { Attributes_request, Variables_request, Table, Module } from '../model/knowledgedata';
+import { Attributes_request, Variables_request, Table, Module, PropagateStructure } from '../model/knowledgedata';
 
 @Injectable({
   providedIn: 'root'
@@ -55,11 +55,11 @@ export class BackendService {
 
     return this.http.post(this.get_modulesURL, {}).toPromise().then(res => res as Module[]);
   }
-  
 
-  public propagate_variables(a: Table) {
 
-    console.log('Calling propagate_variables using ' + a.key);
+  public propagate_variables(a: PropagateStructure) {
+
+    console.log('Calling propagate_variables using ' + a);
 
     return this.http.post(this.get_propagateURL, a).toPromise().then(res => res as any);
 

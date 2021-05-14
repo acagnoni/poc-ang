@@ -4,6 +4,11 @@
     <ng-template pTemplate="header">
         <tr>
             <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}"></th>
+            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}"></th>
+            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}"></th>
+            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}"></th>
+            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}"></th>
+            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}"></th>
             <th>Variable</th>
             <th>Direction</th>
             <th>Short Descpition</th>
@@ -13,7 +18,12 @@
     </ng-template>
     <ng-template pTemplate="body" let-varDescription let-editing="editing" let-ri="rowIndex">
         <tr [pEditableRow]="varDescription">
-            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{key}}</th>
+            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{varDescription.key}}</th>
+            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{varDescription.name}}</th>
+            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{varDescription.programId}}</th>
+            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{varDescription.idCall}}</th>
+            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{varDescription.id}}</th>
+            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{varDescription.type}}</th>
             <td>{{varDescription.variableName}}</td>
             <td>{{varDescription.direction}}</td>
             <td>

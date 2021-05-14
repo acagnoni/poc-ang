@@ -3,7 +3,7 @@ import { NgNeo4jD3Options, NgNeo4jd3Service } from 'ng-neo4jd3';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { BackendService } from '../services/backend.service';
-import { Table, Module, ComponentTreeInfo } from '../model/knowledgedata';
+import { Table, Module, ComponentTreeInfo, PropagateStructure } from '../model/knowledgedata';
 import { EventEmitter } from '@angular/core';
 
 @Component({
@@ -51,7 +51,7 @@ export class NavigationBarComponent implements OnInit {
 
   showTables() {
     this.displayInitialPropagation = true;
-    this.backendService.get_variables("TABLE").then((data) => {
+    this.backendService.get_variables('TABLE').then((data) => {
       console.log(data);
       this.tables = data;
       this.savedTables = data;
@@ -82,7 +82,21 @@ export class NavigationBarComponent implements OnInit {
 
   onRowEditSave(table: Table, index: number) {
     console.log('Row edit saved' + index.toString());
-    this.backendService.propagate_variables(table);
+
+    let propagateStructure: PropagateStructure;
+    propagateStructure = new PropagateStructure();
+
+    propagateStructure.key = table.key;
+    propagateStructure.name = table.tableName;
+    propagateStructure.variabile = table.columnName;
+    propagateStructure.idCall = '-1';
+    propagateStructure.type = 'TABLE';
+    propagateStructure.id = -1;
+    propagateStructure.programId = '@ALLTABLES';
+    propagateStructure.shortDescription = table.shortDescription;
+    propagateStructure.longDescription = table.longDescription;
+
+    this.backendService.propagate_variables(propagateStructure);
   }
 
   onRowEditCancel(table: Table, index: number) {

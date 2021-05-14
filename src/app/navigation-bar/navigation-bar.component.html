@@ -1,4 +1,4 @@
-<p-dialog #dt header="Description" [(visible)]="displayInitialPropagation">
+<p-dialog header="Description" [(visible)]="displayInitialPropagation">
   <p-table [value]="tables" dataKey="key" editMode="row">
     <ng-template pTemplate="header">
         <tr>
@@ -12,7 +12,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-tables let-editing="editing" let-ri="rowIndex">
         <tr [pEditableRow]="tables">
-            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{key}}</th>
+            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{tables.key}}</th>
             <td>{{tables.tableName}}</td>
             <td>{{tables.columnName}}</td>
             <td>
@@ -59,9 +59,9 @@
       <button pButton type="button" icon="pi pi-calendar" class="ui-button-success"></button>
       <button pButton type="button" icon="pi pi-times" class="ui-button-danger"></button>
   </div>
-</p-toolbar>
+</p-toolbar> 
 
-<p-dialog #dt header="Modules" [(visible)]="displayInitialModules"  [style]="{width: '50vw'}" >
+<p-dialog header="Modules" [(visible)]="displayInitialModules"  [style]="{width: '50vw'}" >
   <p-table [value]="modules" dataKey="key" editMode="row">
     <ng-template pTemplate="header">
       <tr>
@@ -72,7 +72,7 @@
   </ng-template>
   <ng-template pTemplate="body" let-modules let-editing="editing" let-ri="rowIndex">
     <tr [pEditableRow]="modules">
-        <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{key}}</th>
+        <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{modules.key}}</th>
         <td>{{modules.name}}</td>
         
     <td style="text-align:center" [style]="{width: '110px', 'text-align': 'center'}">
