@@ -1,5 +1,4 @@
 import { Component, OnInit, Output, Input } from '@angular/core';
-import { NgNeo4jD3Options, NgNeo4jd3Service } from 'ng-neo4jd3';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { BackendService } from '../services/backend.service';
@@ -24,9 +23,7 @@ export class NavigationBarComponent implements OnInit {
   savedTables: Table[];
   clonedCars: { [s: string]: Table; } = {};
 
-  constructor(public ngNeo4jD3Service: NgNeo4jd3Service,
-      private http: HttpClient,
-      private backendService: BackendService) { 
+  constructor(private http: HttpClient, private backendService: BackendService) { 
         this.toggleComponentToTree = new EventEmitter<ComponentTreeInfo>();
         this.toggleItemToCode = new EventEmitter<ComponentTreeInfo>();
 
@@ -86,6 +83,7 @@ export class NavigationBarComponent implements OnInit {
     let propagateStructure: PropagateStructure;
     propagateStructure = new PropagateStructure();
 
+    /*
     propagateStructure.key = table.key;
     propagateStructure.name = table.tableName;
     propagateStructure.variabile = table.columnName;
@@ -95,7 +93,7 @@ export class NavigationBarComponent implements OnInit {
     propagateStructure.programId = '@ALLTABLES';
     propagateStructure.shortDescription = table.shortDescription;
     propagateStructure.longDescription = table.longDescription;
-
+    */
     this.backendService.propagate_variables(propagateStructure);
   }
 
@@ -104,75 +102,6 @@ export class NavigationBarComponent implements OnInit {
     this.tables[index] = this.clonedCars[table.key];
     delete this.clonedCars[table.key];
   }
-
-  drawGraph(name) {
-      const url = 'http://localhost:7474/db/neo4j/tx/commit';
-
-      let options: NgNeo4jD3Options = this.ngNeo4jD3Service.getOptionsPresentation();
-
-      const requestData = JSON.stringify({
-        statements:
-          [{
-
-            'statement': 'MATCH(n:LINK)-[r]-(m:LINK) return n, r, m',
-            'resultDataContents': ['graph']
-          }
-          ]
-      });
-
-      const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json;charset=UTF-8 ',
-          'Authorization': "Basic " + btoa('neo4j:admin')
-        })
-      };
-
-      options.icons = {
-        'LINK': 'gear'
-      };
-
-
-
-      options.minCollision = 60;
-      options.nodeRadius= 20;
-      options.graphContainerHeight = "450px";
-
-      options.onNodeDoubleClick = (node: any) => {
-
-        console.log('Double clicked on ' + node.id)
-        const requestData = JSON.stringify({
-          statements:
-            [{
-
-              'statement': 'MATCH(n:LINK)-[r]-(m:LINK) where ID(m) = ' + node.id + ' return n, r, m',
-              'resultDataContents': ['graph']
-            }
-            ]
-        });
-
-        this.http.post(url, requestData, httpOptions).subscribe((res) => {
-          const newdata: any = res;
-          console.log(newdata);
-          options.neo4jData = newdata;
-
-          this.ngNeo4jD3Service.setValues('#neo4jd3', options);
-          this.ngNeo4jD3Service.init();
-        });
-      };
-
-
-      this.http.post(url, requestData, httpOptions).subscribe((res) => {
-        const newdata: any = res;
-        console.log(newdata);
-        options.neo4jData = newdata;
-        this.ngNeo4jD3Service.setValues('#neo4jd3', options);
-        this.ngNeo4jD3Service.init();
-
-      });
-
-
-  }
-
 
 
 }

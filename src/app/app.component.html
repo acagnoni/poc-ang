@@ -3,16 +3,16 @@
     (toggleItemToCode)="onToggleItemToCode($event)">
 </app-navigation-bar>
 
-<div class="p-grid">
-    <div class="p-col-3">
-<p-panel header="Pseudo code" [toggleable]="true">
+<!--div class="p-grid"-->
+    <!--div class="p-col-3"-->
+<!--p-panel header="Pseudo code" [toggleable]="true">
     <app-component-tree 
         [treeItems]="treeItemsObj" 
         (toggleItemToCode)="onToggleItemToCode($event)">
     </app-component-tree>
-</p-panel>
-</div>
-<div class="p-col-9">
+</p-panel-->
+<!--/div>
+<!--div class="p-col-9"-->
 <p-panel header="Components" [toggleable]="true">
     <app-code-tree
         (toggleComponentToTree)="onToggleComponentToTree($event)"
@@ -25,45 +25,7 @@
 <p-panel header="Details" [toggleable]="true">
     <app-details-item
         [detail]="detailObj"
-        [varDescription]="varDescriptionObj">
+        [varDescriptionId]="varDescriptionObj">
     </app-details-item>
 </p-panel>
-</div>
-</div>
-
-
-<!--div style="width: 100%; height:900px; background: whitesmoke;">
-    <as-split direction="horizontal">
-            
-        <as-split-area size="20%">
-            <app-component-tree 
-                [treeItems]="treeItemsObj" 
-                (toggleItemToCode)="onToggleItemToCode($event)">
-            </app-component-tree>
-        </as-split-area>
-
-        <as-split-area size="80%">
-            <as-split direction="vertical">
-                <as-split-area>
-                    <app-code-tree
-                    (toggleComponentToTree)="onToggleComponentToTree($event)"
-                    (toggleInitComponentToTree)="onToggleInitComponentToTree($event)"
-                    (toggleDetailToPane)="onToggleDetailToPane($event)"
-                    [currentItem]="currentItemObj">
-                    </app-code-tree>
-                    
-                </as-split-area>
-                <as-split-area>
-            
-                    <app-details-item
-                        [detail]="detailObj">
-                    </app-details-item>
-                
-                </as-split-area>
-            </as-split>
-
-        </as-split-area>
-
-    </as-split>
-</div--> 
- 
+<!--/div-->

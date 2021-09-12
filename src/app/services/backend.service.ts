@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import {TreeTableModule} from 'primeng/treetable';
 import { TreeNode } from 'primeng/api/treenode';
-import { Attributes_request, Variables_request, Table, Module, PropagateStructure } from '../model/knowledgedata';
+import { Attributes_request, Variables_request, Table, Module, PropagateStructure, Descriptions_request } from '../model/knowledgedata';
 
 @Injectable({
   providedIn: 'root'
@@ -13,17 +14,40 @@ export class BackendService {
   private get_propagateURL: string;
   private get_modulesURL: string;
   private controllerURL: string;
+  private get_descriptionsURL: string;
 
 
   constructor(private http: HttpClient) {
     this.get_attributes_expandedURL = 'http://localhost:8080/get_attributes_expanded';
     this.get_variablesURL = 'http://localhost:8080/get_variables';
+    this.get_descriptionsURL = 'http://localhost:8080/get_descriptions';
     this.get_propagateURL = 'http://localhost:8080/propagate_variables';
     this.get_modulesURL = 'http://localhost:8080/get_modules';
     this.controllerURL = 'http://localhost:8080/controller';
 
   }
 
+
+  public get_descriptions(descId: string) {
+    console.log('Calling get_descriptions using ' + descId);
+    let a: Descriptions_request;
+
+    a = new Descriptions_request();
+    a.id = descId;
+
+    return this.http.post(this.get_descriptionsURL, a).toPromise().then(
+      res => <TreeNode[]> res['data']
+    );
+
+
+
+  }
+
+  getFilesystem() {
+    return this.http.get('file:///media/andrea/Data/projects/poc-ang/./src/filesystem.json')
+                .toPromise()
+                .then(res => <TreeNode[]> res['data']);
+  }
   public get_attributes_expanded(unit: string, proc: string) {
 
     console.log('Calling get_attributes_expanded using ' + unit + ' - ' + proc);
@@ -33,7 +57,9 @@ export class BackendService {
     a.UnitName = unit;
     a.ProcName = proc;
 
-    return this.http.post(this.get_attributes_expandedURL, a).toPromise().then(res => res['data'] as TreeNode[]);
+    return this.http.post(this.get_attributes_expandedURL, a).toPromise().then(
+      res => res['data'] as TreeNode[]
+    );
 
   }
 

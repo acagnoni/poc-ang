@@ -18,6 +18,10 @@ export class Attributes_request {
     ProcName: string;
   }
 
+  export class Descriptions_request {
+    id: string;
+  }
+
 export class Variables_request {
     type: string;
   }
@@ -31,26 +35,25 @@ export class Table {
   }
 
 export class PropagateStructure {
-    key;
+    attr_id;
+    orig_id;
+    direction;
+    start;
+    length;
     name;
-    variabile;
-    type;
-    id;
-    programId;
-    idCall;
+    variabileName;
     shortDescription;
     longDescription;
   }
 
 
 export class VarDescription {
-    key;
+    orig_id;
+    attr_id;
+    start;
+    length;
     name;
-    variableName;
-    programId;
-    idCall;
-    id;
-    type;
+    variabileName;
     direction;
     shortDescription;
     longDescription;

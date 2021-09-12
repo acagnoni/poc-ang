@@ -32,6 +32,8 @@ import {SplitButtonModule} from 'primeng/splitbutton';
 import {CardModule} from 'primeng/card';
 import {ToastModule} from 'primeng/toast';
 import {InputTextModule} from 'primeng/inputtext';
+import {TreeNode} from 'primeng/api';
+import {TreeTableModule} from 'primeng/treetable';
 
 
 @NgModule({
@@ -63,6 +65,7 @@ import {InputTextModule} from 'primeng/inputtext';
     MessagesModule,
     ListboxModule,
     TreeModule,
+    TreeTableModule,
     ContextMenuModule,
     DropdownModule,
     ToolbarModule,

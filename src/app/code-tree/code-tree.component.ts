@@ -27,7 +27,7 @@ export class CodeTreeComponent implements OnInit, OnChanges {
   @Output() private toggleComponentToTree: EventEmitter<ComponentTreeInfo>;
   @Output() private toggleInitComponentToTree: EventEmitter<ComponentTreeInfo>;
   @Output() private toggleDetailToPane: EventEmitter<any>;
-  @Output() private toggleDescriptionToPane: EventEmitter<VarDescription>;
+  @Output() private toggleDescriptionToPane: EventEmitter<any>;
 
   constructor(private backendService: BackendService) {
     this.toggleComponentToTree = new EventEmitter<ComponentTreeInfo>();
@@ -112,7 +112,7 @@ export class CodeTreeComponent implements OnInit, OnChanges {
 
     console.log(event.node)
     this.addItemsToDetail(event.node.detail);
-    this.addItemsToDescription(event.node.description);
+    this.addItemsToDescription(event.node.descriptionId);
   }
 
   ngOnChanges(changes: SimpleChanges): void {

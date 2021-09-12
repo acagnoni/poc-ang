@@ -1,7 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { VarDescription, PropagateStructure } from '../model/knowledgedata';
 import { BackendService } from '../services/backend.service';
+import {TreeTableModule} from 'primeng/treetable';
+import {TreeNode} from 'primeng/api';
+
+
 
 @Component({
   selector: 'app-details-item',
@@ -11,37 +15,41 @@ import { BackendService } from '../services/backend.service';
 export class DetailsItemComponent implements OnInit {
 
   @Input() public detail: any;
-  @Input() public varDescription: VarDescription[];
-  savedVarDescription: VarDescription[];
-  clonedCars: { [s: string]: VarDescription; } = {};
+  @Input() public varDescriptionId: any;
+  public varDescription: TreeNode[];
 
   constructor(
     private http: HttpClient,
-    private backendService: BackendService) 
+    private backendService: BackendService)
     { }
 
   ngOnInit() {
+    console.log("OnInit varDescription id: ", this.varDescriptionId);
+    this.backendService.get_descriptions(this.varDescriptionId).then((data) => {
+      this.varDescription = <TreeNode[]>[data];
+      console.log(data);
+    });
 
   }
 
   onRowEditInit(varDescription: VarDescription, index: number) {
     console.log('Row edit initialized' + index.toString());
-    this.clonedCars[varDescription.key] = {...varDescription};
   }
 
   onRowEditSave(varDescription: VarDescription, index: number) {
     console.log('Row edit saved' + index.toString());
 
+    console.log(varDescription);
+
     let propagateStructure: PropagateStructure;
     propagateStructure = new PropagateStructure();
 
-    propagateStructure.key = varDescription.key;
+    propagateStructure.attr_id = varDescription.attr_id;
+    propagateStructure.orig_id = varDescription.orig_id;
     propagateStructure.name = varDescription.name;
-    propagateStructure.variabile = varDescription.variableName;
-    propagateStructure.idCall = varDescription.idCall;
-    propagateStructure.type = varDescription.type;
-    propagateStructure.id = varDescription.id;
-    propagateStructure.programId = varDescription.programId;
+    propagateStructure.variabileName = varDescription.variabileName;
+    propagateStructure.start = varDescription.start;
+    propagateStructure.length = varDescription.length;
     propagateStructure.shortDescription = varDescription.shortDescription;
     propagateStructure.longDescription = varDescription.longDescription;
 
@@ -50,8 +58,22 @@ export class DetailsItemComponent implements OnInit {
 
   onRowEditCancel(varDescription: VarDescription, index: number) {
     console.log('Row edit cancelled' + index.toString());
-    this.varDescription[index] = this.clonedCars[varDescription.key];
-    delete this.clonedCars[varDescription.key];
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log("OnChanges: varDescription id: ", this.varDescriptionId);
+
+    this.backendService.get_descriptions(this.varDescriptionId).then((data) => {
+
+      console.log(data);
+
+      this.varDescription = [];
+      this.varDescription.push({'data': data});
+
+      console.log(this.varDescription);
+    });
+
+
   }
 
 }

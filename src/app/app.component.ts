@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
       true,
       'collapsed',
       'NPSTM1010',
-      'MAIN'
+      'NPSTM1010'
     );
 
     this.treeItemsObj = [{
