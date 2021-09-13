@@ -66,10 +66,7 @@ export class DetailsItemComponent implements OnInit {
     this.backendService.get_descriptions(this.varDescriptionId).then((data) => {
 
       console.log(data);
-
-      this.varDescription = [];
-      this.varDescription.push({'data': data});
-
+      this.varDescription = data;
       console.log(this.varDescription);
     });
 

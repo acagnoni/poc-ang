@@ -1,9 +1,8 @@
 <div>
 <p-panel header="Functional information" [toggleable]="true" [style]="{'margin-bottom':'20px'}">
-  <p-treeTable [value]="varDescription" dataKey="attr_id" editMode="row">
-    <ng-template pTemplate="header">
+  <p-treeTable [value]="varDescription" *ngIf="varDescription" editable="true" editMode="cell">
+    <ng-template pTemplate="header" let-columns>
         <tr>
-            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}"></th>
             <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}"></th>
             <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}"></th>
             <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}"></th>
@@ -16,43 +15,25 @@
             <th [style]="{width: '110px', 'text-align': 'center'}">Action</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-varDescription let-editing="editing" let-ri="rowIndex">
-        <tr [pEditableRow]="varDescription">
-            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{varDescription.attr_id}}</th>
-            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{varDescription.orig_id}}</th>
-            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{varDescription.name}}</th>
-            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{varDescription.start}}</th>
-            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{varDescription.length}}</th>
-            <td>{{varDescription.variableName}}</td>
-            <td>{{varDescription.direction}}</td>
-            <td>
-            <p-cellEditor>
-                <ng-template pTemplate="input">
-                    <input pInputText type="text" [(ngModel)]="varDescription.shortDescription" [style]="{width: '100%'}">
-                </ng-template>
-                <ng-template pTemplate="output">
-                    {{varDescription.shortDescription}}
-                </ng-template>
-            </p-cellEditor>
-          </td>
-          <td>
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                  <input pInputText type="text" [(ngModel)]="varDescription.longDescription" [style]="{width: '100%'}">
-              </ng-template>
-              <ng-template pTemplate="output">
-                  {{varDescription.longDescription}}
-              </ng-template>
-          </p-cellEditor>
-        </td>
-        <!--td style="text-align:center" [style]="{width: '110px', 'text-align': 'center'}">
+    <ng-template pTemplate="body" let-rowNode let-editing="editing" let-rowData="rowData" let-ri="rowIndex">
+     <tr [pEditableRow]="rowData">
+            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{rowData.attr_id}}</th>
+            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{rowData.orig_id}}</th>
+            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{rowData.name}}</th>
+            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{rowData.start}}</th>
+            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{rowData.length}}</th>
+            <td>{{rowData.variabileName}}</td>
+            <td>{{rowData.direction}}</td>
+            <td>{{rowData.shortDescription}}</td>
+            <td>{{rowData.longDescription}}</td>
+        <td style="text-align:center" [style]="{width: '110px', 'text-align': 'center'}">
           <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil"
-              class="ui-button-info" (click)="onRowEditInit(varDescription, ri)"></button>
+              class="ui-button-info" (click)="onRowEditInit(rowData, ri)"></button>
           <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check"
-              class="ui-button-success" style="margin-right: .5em" (click)="onRowEditSave(varDescription, ri)"></button>
+              class="ui-button-success" style="margin-right: .5em" (click)="onRowEditSave(rowData, ri)"></button>
           <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times"
-              class="ui-button-danger" (click)="onRowEditCancel(varDescription, ri)"></button>
-        </!--td-->
+              class="ui-button-danger" (click)="onRowEditCancel(rowData, ri)"></button>
+        </td>
         </tr>
     </ng-template>
 </p-treeTable>

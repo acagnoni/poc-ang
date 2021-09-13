@@ -1,8 +1,14 @@
+import { VarDescription } from './../model/knowledgedata';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import {TreeTableModule} from 'primeng/treetable';
+import { HttpClient } from '@angular/common/http';
 import { TreeNode } from 'primeng/api/treenode';
-import { Attributes_request, Variables_request, Table, Module, PropagateStructure, Descriptions_request } from '../model/knowledgedata';
+import {
+  Attributes_request,
+  Variables_request,
+  Table,
+  Module,
+  PropagateStructure,
+  Descriptions_request } from '../model/knowledgedata';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +41,7 @@ export class BackendService {
     a = new Descriptions_request();
     a.id = descId;
 
-    return this.http.post(this.get_descriptionsURL, a).toPromise().then(
+    return this.http.post<VarDescription[]>(this.get_descriptionsURL, a).toPromise().then(
       res => <TreeNode[]> res['data']
     );
 
@@ -43,11 +49,7 @@ export class BackendService {
 
   }
 
-  getFilesystem() {
-    return this.http.get('file:///media/andrea/Data/projects/poc-ang/./src/filesystem.json')
-                .toPromise()
-                .then(res => <TreeNode[]> res['data']);
-  }
+
   public get_attributes_expanded(unit: string, proc: string) {
 
     console.log('Calling get_attributes_expanded using ' + unit + ' - ' + proc);
@@ -58,7 +60,7 @@ export class BackendService {
     a.ProcName = proc;
 
     return this.http.post(this.get_attributes_expandedURL, a).toPromise().then(
-      res => res['data'] as TreeNode[]
+      res => <TreeNode[]> res['data']
     );
 
   }
