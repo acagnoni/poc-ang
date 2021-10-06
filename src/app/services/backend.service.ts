@@ -41,9 +41,8 @@ export class BackendService {
     a = new Descriptions_request();
     a.id = descId;
 
-    return this.http.post<VarDescription[]>(this.get_descriptionsURL, a).toPromise().then(
-      res => <TreeNode[]> res['data']
-    );
+    return this.http.post<VarDescription[]>(this.get_descriptionsURL, a).toPromise()
+      .then(res => <VarDescription[]> res['data'])
 
 
 

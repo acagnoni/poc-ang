@@ -1,44 +1,36 @@
 <div>
 <p-panel header="Functional information" [toggleable]="true" [style]="{'margin-bottom':'20px'}">
-  <p-treeTable [value]="varDescription" *ngIf="varDescription">
+  <p-table [value]="varDescription" *ngIf="varDescription">
     <ng-template pTemplate="header" let-columns>
         <tr>
-            <!--th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}"></!--th>
-            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}"></th>
-            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}"></th>
-            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}"></th>
-            <th-- style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}"></th-->
-            <th>Variable</th>
-            <!--th>Direction</!--th-->
-            <th>Short Descpition</th>
-            <th>Long Description</th>
+            <th>Variable Source</th>
+            <th [style]="{width: '150px', 'text-align': 'center'}">Coord. Source</th>
+            <th >Variable Dest</th>
+            <th [style]="{width: '150px', 'text-align': 'center'}">Coord. Dest</th>
             <th [style]="{width: '110px', 'text-align': 'center'}">Action</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+    <ng-template pTemplate="body" let-rowData>
      <tr>
-            <!--th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{rowData.attr_id}}</!--th>
-            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{rowData.orig_id}}</th>
-            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{rowData.name}}</th>
-            <th style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{rowData.start}}</th>
-            <th-- style="visibility:hidden;" [style]="{width: '0%', 'text-align': 'center'}">{{rowData.length}}</th-->
             <td>
-             <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-            {{rowData.variabileName}}</td>
-            <!--td>{{rowData.direction}}</!--td-->
-            <td>{{rowData.shortDescription}}</td>
-            <td>{{rowData.longDescription}}</td>
-        <!--td style="text-align:center" [style]="{width: '110px', 'text-align': 'center'}">
-          <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil"
-              class="ui-button-info" (click)="onRowEditInit(rowData, ri)"></button>
-          <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check"
-              class="ui-button-success" style="margin-right: .5em" (click)="onRowEditSave(rowData, ri)"></button>
-          <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times"
-              class="ui-button-danger" (click)="onRowEditCancel(rowData, ri)"></button>
-        </!--td-->
+              {{rowData.s_varname}}
+            </td>
+            <td>
+              {{rowData.s_start}} - {{rowData.s_length}}
+            </td>
+            <td>
+              {{rowData.d_varname}}
+            </td>
+            <td>
+              {{rowData.d_start}} - {{rowData.d_length}}
+            </td>
+            <td style="text-align:center" [style]="{width: '110px', 'text-align': 'center'}">
+              <button pButton type="button" label="Detail"
+                class="p-button-raised p-button-rounded" (click)="onDetail(rowData)"></button>
+            </td>
         </tr>
     </ng-template>
-</p-treeTable>
+</p-table>
 </p-panel>
 </div>
 
@@ -47,3 +39,7 @@
   <ngx-json-viewer [json]="detail"></ngx-json-viewer>
 </p-panel>
 </div>
+
+<p-dialog header="Title" [(visible)]="display">
+  <ngx-json-viewer [json]="mappings"></ngx-json-viewer>
+</p-dialog>

@@ -35,28 +35,23 @@ export class Table {
   }
 
 export class PropagateStructure {
-    attr_id;
-    orig_id;
-    direction;
-    start;
-    length;
-    name;
-    variabileName;
+    descriptionId;
     shortDescription;
     longDescription;
   }
 
 
 export class VarDescription {
-    orig_id;
-    attr_id;
-    start;
-    length;
-    name;
-    variabileName;
-    direction;
-    shortDescription;
-    longDescription;
+    descriptionId;
+    s_varname;
+    s_start;
+    s_length;
+    d_varname;
+    d_start;
+    d_length;
+    d_shortdescription;
+    d_longdescription;
+    mappings;
   }
 
 export class Module {

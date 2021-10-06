@@ -19,6 +19,7 @@ export class CodeTreeComponent implements OnInit, OnChanges {
 
   selectedModel: string;
 
+
   model: String = 'collapsed';
 
   items: MenuItem[];
@@ -111,7 +112,7 @@ export class CodeTreeComponent implements OnInit, OnChanges {
     }
 
     console.log(event.node)
-    this.addItemsToDetail(event.node.detail);
+    this.addItemsToDetail(event.node.details);
     this.addItemsToDescription(event.node.descriptionId);
   }
 
